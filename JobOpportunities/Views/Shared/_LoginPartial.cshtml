@@ -1,0 +1,97 @@
+﻿@using Microsoft.AspNet.Identity
+@using JobOpportunities.Models
+
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        var db = new ApplicationDbContext();
+        var userId = User.Identity.GetUserId();
+        var currentUser = db.Users.Where(a => a.Id == userId).SingleOrDefault();
+
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                @*This is the header and on click drops down*@
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <strong>Welcome @currentUser.UserName</strong>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    @*This is the drop down list*@
+                    <li>
+                        <div class="navbar-user">
+                            <div class="row">
+
+                                <div class="col-lg-8">                @*User information  on the right of this row  and take col-lg-8*@
+                                    <p class="text-left">
+                                        <strong>@currentUser.UserName</strong>
+                                    </p>
+                                    <p>
+                                        <strong>@currentUser.Email</strong>
+                                    </p>
+                                   
+                                    @if (currentUser.UserType == "Publisher")
+                                    {
+                                        <a href="~/ApplyForJob/GetJobsByPublisher" class="btn btn-success btn-block">Appliers for jobs</a>
+                                        <a href="~/ApplyForJob/AllMyPostedJobs" class="btn btn-success btn-block">All Your posted jobs</a>
+                                        <a href="~/Job/Create" class="btn btn-success btn-block">Post new job</a>
+
+                                        
+                                        @*@Html.ActionLink("Your posted jobs", "GetJobsByPublisher", "Home", new { @class = "btn btn-success btn-block" });*@
+                                    }
+                                    else if (currentUser.UserType == "Admins")
+                                    {
+                                        <a href="~/Role/Index" class="btn btn-success btn-block">User Type</a>
+                                        <a href="~/Category/Index" class="btn btn-success btn-block">Categories</a>
+                                        <a href="~/Job/Index" class="btn btn-success btn-block">Jobs</a>
+                                        <a href="~/Home/Publishers" class="btn btn-success btn-block">Publishers</a>
+                                        <a href="~/Home/Searchers" class="btn btn-success btn-block">Searchers</a>
+                                        <a href="~/Home/Admins" class="btn btn-success btn-block">Admins</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="~/ApplyForJob/GetJobsByUser" class="btn btn-success btn-block">Jobs you applied for</a>
+                                        @*@Html.ActionLink("Jobs you applied for", "GetJobsByUser", "Home", routeValues: null, htmlAttributes: new { title = "", @class = "btn btn-primary btn-block" })*@
+                                    }
+                                    <a href="~/Account/EditProfile" class="btn btn-primary btn-block">Manage your account</a>
+                                     @*@Html.ActionLink("Manage your account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "", @class= "btn btn-primary btn-block" })*@
+                                </div>    
+                                <div class="col-lg-4">                      @*User Image  on the left of this row  and take col-lg-4*@
+                                    <p class="text-center">
+                                        <span class="glyphicon glyphicon-user img-size"></span>
+                                    </p>
+                                </div>     
+                            </div>
+                        </div>
+                    </li>
+                    <li class="divider"></li>                 @*to leave space and row between up and down*@
+                    <li>
+                        <div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p>
+                                        <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-danger btn-block">Log off</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+
+            </li>
+
+                </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

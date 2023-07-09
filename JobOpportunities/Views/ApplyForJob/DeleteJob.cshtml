@@ -1,0 +1,48 @@
+﻿@model JobOpportunities.Models.ApplyForJob
+
+@{
+    ViewBag.Title = "DeleteJob";
+}
+
+<h2>DeleteJob</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ApplyForJob</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Job.JobTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Job.JobTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplyDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplyDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "GetJobsByUser")
+        </div>
+    }
+</div>

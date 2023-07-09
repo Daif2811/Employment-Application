@@ -1,0 +1,143 @@
+﻿@model JobOpportunities.Models.Job
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit", "Job", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Job</h4>
+        @* Here I will show the error           Display none   for disable showing the error untill error happen *@
+        <div class="alert alert-danger" id="error-div" style="display:none;">
+            <span id="error-view">
+
+            </span>
+
+        </div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.JobID)
+        @Html.HiddenFor(model => model.JobImage)        @* To use it to send the last image if the user left it empty *@
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JobTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobContent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JobContent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JobContent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobImage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @* @Html.EditorFor(model => model.JobImage, new { htmlAttributes = new { @class = "form-control" } })*@
+                @if (string.IsNullOrWhiteSpace(Model.JobImage))
+                {
+                    <input type="file" name="upload" />
+                }
+                else
+                {
+                    <img src="~/Images/Jobs/@Html.DisplayFor(i => Model.JobImage)" class="thumbnail" style="width:60px; height:70px;" />
+                    <input type="file" name="upload" id="myImage" />
+                }
+
+                @Html.ValidationMessageFor(model => model.JobImage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" id="save" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $(function () {
+            $("#save").click(function () {
+
+
+                //// check if the input is Empty
+                //if ($("#myImage").val() == "") {
+                //    $("#error-div").fadeIn();
+                //    $("#error-view").append("Please insert an image for this job");
+                //    return false;
+                //}
+
+
+
+                // if the image is not null  then do the next codes
+                if ($("#myImage").val() != "") {
+
+                    // check if the image extension is valid
+                    var fileName = document.getElementById("myImage").value;
+                    var extensionImage = fileName.substr(fileName.lastIndexOf(".") + 1);
+                    var valiExtension = ['jpg', 'png', 'gif', 'bmp', 'jpeg', 'svg'];
+                    if ($.inArray(extensionImage, valiExtension) == -1) {
+                        $("#error-div").fadeIn();
+                        $("#error-view").append("Please insert an image with a correct extension ");
+                        return false;
+                    }
+
+
+
+
+                    // check if the image size is valid
+                    var myFileSize = document.getElementById("myImage").files[0].size / 1024 / 1024;
+                    if (myFileSize > 2) {
+                        $("#error-div").fadeIn();
+                        $("#error-view").append("The size of image is big , please insert an image less than 2 Mega byte ");
+                        return false;
+                    }
+
+
+
+                }
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+    </script>
+}

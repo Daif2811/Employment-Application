@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    @* viewport for responsive for mobiles               initial scale=1 for zoom *@
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Job Opportunities</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+
+                @*<a class="navbar-brand ">
+                    <img src="~/Images/logo.png" width="75" height="50"/>
+                </*@
+
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Job Opportunities", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @*<li>@Html.ActionLink("Categories", "Index", "Category")</li>*@
+                    @*<li>@Html.ActionLink("Jobs", "Index", "Job")</li>*@
+                    @*<li>@Html.ActionLink("Roles", "Index", "Role")</li>*@
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("ContactUs", "Contact", "Home")</li>
+                 
+                    <li>
+                        @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+                        {
+                            <input type="text" name="SearchName" id="SearchName" placeholder="Search here" />
+                        }
+                    </li>
+                    
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        <div class="row" style="min-height: 550px;">
+            @RenderBody()
+        </div>
+    </div>
+
+
+    <hr />
+
+
+
+    <footer class="navbar navbar-inverse text-muted myfooter">
+        <br />
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 foot">
+                    <h3>
+                        <i class="glyphicon glyphicon-question-sign"></i>
+                        Who are us ?
+                    </h3>
+                    <p>
+                        In the previous tutorial you displayed related data. In this tutorial you'll
+                        update related data. For most relationships,
+                        this can be done by updating either foreign key fields or
+                    </p>
+                </div>
+                <div class="col-md-4 foot">
+                    <h3>
+                        <i class="glyphicon glyphicon-globe"></i>
+                        Important links
+                    </h3>
+                    <ul>
+                        <li><a href="#">Public sector jobs</a></li>
+                        <li><a href="#">Private sector jobs</a></li>
+                        <li><a href="#">Jobs abroad</a></li>
+                        <li><a href="#">Miscellaneous jobs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 foot">
+                    <h3>
+                        <i class="glyphicon glyphicon-envelope"></i>
+                        Contact Us
+                    </h3>
+                    <ul>
+                        <li><a href="#">Our facebook page</a></li>
+                        <li><a href="#">Follow us on twitter</a></li>
+                        <li><a href="#">Subscribe us om Youtube</a></li>
+                        <li><a href="#">Send a message</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row text-center subfooter">
+                <hr />
+                <p>Al rights reserved to the recruiment site.</p>
+                <p>&copy; @DateTime.Now.Year - Job Opportunities</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

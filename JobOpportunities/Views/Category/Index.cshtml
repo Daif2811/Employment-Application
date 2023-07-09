@@ -1,0 +1,39 @@
+﻿@model IEnumerable<JobOpportunities.Models.Category>
+
+@{
+    ViewBag.Title = "Category";
+}
+
+<h2>Jobs Types List</h2>
+
+<p>
+    @Html.ActionLink("Create New Type", "Create")
+</p>
+<table class="table table-striped table-hover table-bordered" >
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CategoryID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryID })
+        </td>
+    </tr>
+}
+
+</table>

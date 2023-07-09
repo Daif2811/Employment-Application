@@ -1,0 +1,49 @@
+﻿@model JobOpportunities.Models.ApplyForJob
+
+@{
+    ViewBag.Title = "DetailsOfJob";
+}
+
+<h2>DetailsOfJob</h2>
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Job.JobTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Job.JobTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Resume)
+        </dt>
+
+        <dd>
+           <embed src="~/Images/CV/@Html.DisplayFor(model => model.Resume)"/> 
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplyDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplyDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "GetJobsByUser")
+</p>

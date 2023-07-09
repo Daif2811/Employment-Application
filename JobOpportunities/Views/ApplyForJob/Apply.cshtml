@@ -1,0 +1,67 @@
+﻿@model JobOpportunities.Models.ApplyForJob
+
+@{
+    ViewBag.Title = "Apply";
+}
+
+<div class="row">
+    <h2 class="panel-heading text-center" style="background-color:darkgray">Apply for job</h2>
+    <hr />
+</div>
+
+
+@using (Html.BeginForm("Apply", "ApplyForJob",FormMethod.Post,  new { enctype = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+       
+        <div class="row">
+            @{ 
+                if(ViewBag.Result != null)
+                {
+                    <h3 class="text-success">@ViewBag.Result</h3>
+                }
+            }
+        <hr />
+        </div>
+
+        
+
+            <div class="row">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Resume, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="file" name="upload"/>
+                        @Html.ValidationMessageFor(model => model.Resume, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+        
+        
+
+
+        <div class="form-group row">
+            <div class="col-md-offset-1 col-md-10">
+                <input type="submit" value="Send And Apply" class="btn btn-success" />
+                @Html.ActionLink("Back To Home", "Index","Home" ,null, new { @class="btn btn-warning"})
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

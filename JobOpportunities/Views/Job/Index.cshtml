@@ -1,0 +1,53 @@
+﻿@model IEnumerable<JobOpportunities.Models.Job>
+
+@{
+    ViewBag.Title = "Jobs";
+}
+
+<h2>Jobs</h2>
+
+<p>
+    @Html.ActionLink("Create New Job", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobContent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobImage)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobTitle)
+        </td>
+        <td>
+            @Html.Raw(HttpUtility.HtmlDecode(Html.DisplayFor(modelItem => item.JobContent).ToString()))
+            @*@Html.DisplayFor(modelItem => item.JobContent)*@
+        </td>
+        <td>
+           @* @Html.DisplayFor(modelItem => item.JobImage)*@
+            <img src="~/Images/Jobs/@Html.DisplayFor( modelItem => item.JobImage)" class="thumbnail" style="width : 50px; height : 50px;"/>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.JobID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.JobID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.JobID })
+        </td>
+    </tr>
+}
+
+</table>

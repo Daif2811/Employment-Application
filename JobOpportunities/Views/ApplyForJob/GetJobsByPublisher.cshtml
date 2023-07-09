@@ -1,0 +1,57 @@
+﻿@model IEnumerable<JobOpportunities.Models.JobsViewModel>
+
+
+
+
+<table class="table table-bordered">
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <th colspan="5" style="background-color:darkgray;"><h3>@item.JobTitle</h3> </th>
+        </tr>
+
+        <tr>
+            <th>
+                Applyer Name
+            </th>
+            <th>
+                Resume
+            </th>
+            <th>
+                Message
+            </th>
+            <th>
+                Apply Date
+            </th>
+            <th></th>
+        </tr>
+        foreach (var x in item.Items)
+        {
+            <tr>
+                <td>
+                    @x.User.UserName
+                </td>
+                <td>
+                    <embed src="~/Images/CV/@x.Resume" alt="Alternate Text" />
+                </td>
+                <td>
+                    @x.Message
+                </td>
+                <td>
+                    @x.ApplyDate
+                </td>
+                <td>
+                    @Html.ActionLink("Select","DetailsApplyer" , new { id = x.Id})
+                </td>
+            </tr>
+        }
+        <tr style="background-color:black;">
+            <td colspan="5">---------------------------</td>
+        </tr>
+        
+
+    }
+</table>
+
